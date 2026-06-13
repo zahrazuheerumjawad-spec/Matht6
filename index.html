@@ -29,18 +29,19 @@
       margin: 25px 0;
       font-weight: bold;
     }
-
-    .option {
-      display: block;
-      background: #f1f8ff;
-      margin: 10px auto;
-      padding: 15px;
-      border: 2px solid #2196f3;
-      border-radius: 12px;
-      cursor: pointer;
-      font-size: 20px;
-      width: 80%;
-    }
+.option {
+  display: block;
+  background: #f1f8ff;
+  color: #000000 !important;
+  margin: 10px auto;
+  padding: 15px;
+  border: 2px solid #2196f3;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 20px;
+  width: 80%;
+  font-weight: bold;
+}
 
     .option:hover {
       background: #bbdefb;
@@ -57,15 +58,16 @@
     }
 
     button {
-      padding: 12px 25px;
-      font-size: 18px;
-      border: none;
-      border-radius: 10px;
-      background: #ff9800;
-      color: white;
-      cursor: pointer;
-      margin-top: 20px;
-    }
+  padding: 12px 25px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  background: #ff9800;
+  color: #000000;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+}
 
     button:hover {
       background: #e68900;
@@ -152,6 +154,26 @@ const questions = [
   {q:"What is (9 + 1) × 2?", o:["18","20","11","10"], a:"20"},
   {q:"What is 9 + 1 × 2?", o:["20","18","11","10"], a:"11"},
   {q:"Which statement is true?", o:["Parentheses matter","Grouping never matters","Multiplication is always first","Expressions need an equal sign"], a:"Parentheses matter"}
+  {q:"What is 6 + 4 × 2?", o:["20","14","16","10"], a:"14"},
+{q:"What is (6 + 4) × 2?", o:["20","14","16","10"], a:"20"},
+{q:"What is 30 ÷ 5 + 3?", o:["9","6","12","15"], a:"9"},
+{q:"What is 30 ÷ (5 + 1)?", o:["5","6","4","10"], a:"5"},
+{q:"Find the rule: 10, 20, 30, 40...", o:["Add 5","Add 10","Multiply by 10","Subtract 10"], a:"Add 10"},
+{q:"Find the rule: 100, 90, 80, 70...", o:["Add 10","Subtract 10","Divide by 10","Multiply by 10"], a:"Subtract 10"},
+{q:"What comes next? 5, 10, 20, 40...", o:["45","50","80","60"], a:"80"},
+{q:"What comes next? 81, 27, 9, 3...", o:["1","2","0","6"], a:"1"},
+{q:"Which word means the answer to an addition problem?", o:["Product","Quotient","Sum","Difference"], a:"Sum"},
+{q:"Which word means the answer to a subtraction problem?", o:["Sum","Difference","Product","Term"], a:"Difference"},
+{q:"Which word means the answer to a multiplication problem?", o:["Product","Quotient","Sum","Difference"], a:"Product"},
+{q:"Which word means the answer to a division problem?", o:["Sum","Term","Quotient","Product"], a:"Quotient"},
+{q:"Which expression means the difference of 20 and 7?", o:["20 + 7","20 - 7","20 × 7","20 ÷ 7"], a:"20 - 7"},
+{q:"Which expression means the quotient of 36 and 6?", o:["36 + 6","36 - 6","36 × 6","36 ÷ 6"], a:"36 ÷ 6"},
+{q:"What is (8 + 2) × 3?", o:["30","24","14","20"], a:"30"},
+{q:"What is 8 + 2 × 3?", o:["30","14","24","18"], a:"14"},
+{q:"Why are (8 + 2) × 3 and 8 + 2 × 3 different?", o:["Different numbers","Different grouping","Different symbols only","No reason"], a:"Different grouping"},
+{q:"Which is an equation?", o:["7 + 5","9 × 2","8 + 4 = 12","6 - 2"], a:"8 + 4 = 12"},
+{q:"Which one is an expression?", o:["10 + 5 = 15","12 ÷ 3","8 = 8","4 × 2 = 8"], a:"12 ÷ 3"},
+{q:"Which should be done first in 4 + 6 ÷ 2?", o:["4 + 6","6 ÷ 2","4 ÷ 2","6 + 2"], a:"6 ÷ 2"}
 ];
 
 let current = 0;
