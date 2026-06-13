@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Math Quiz</title>
+<title>Math Challenge Game</title>
 <style>
-body{font-family:Arial;text-align:center;background:#eef7ff;padding:30px}
-.box{background:white;padding:25px;border-radius:20px;max-width:700px;margin:auto}
-.option{display:block;margin:10px auto;padding:15px;width:80%;font-size:20px;color:black;background:#f1f8ff;border:2px solid #2196f3;border-radius:10px}
+body{font-family:Arial;text-align:center;background:#eef7ff;padding:25px}
+.box{background:white;padding:25px;border-radius:20px;max-width:800px;margin:auto;box-shadow:0 4px 15px #999}
+.option{display:block;margin:10px auto;padding:15px;width:85%;font-size:20px;font-weight:bold;color:black;background:#f1f8ff;border:2px solid #2196f3;border-radius:12px}
+.correct{background:#c8e6c9!important}
+.wrong{background:#ffcdd2!important}
+button{padding:12px 25px;font-size:18px;font-weight:bold;border:0;border-radius:10px;background:#ff9800;color:black}
+#question{font-size:24px;font-weight:bold;color:black}
+#feedback{font-size:20px;font-weight:bold}
 </style>
 </head>
 <body>
+
 <div class="box">
-<h1>🌟 Math game for grade 5A 🌟</h1>
-<p id="score"></p>
+<h1>🏆 Math Challenge Game 🏆</h1>
+<p id="info"></p>
 <h2 id="question"></h2>
 <div id="options"></div>
 <p id="feedback"></p>
@@ -20,41 +26,58 @@ body{font-family:Arial;text-align:center;background:#eef7ff;padding:30px}
 
 <script>
 const questions=[
-{q:"What is (6 + 4) × 2?",o:["20","14","16","10"],a:"20",e:"Parentheses first."},
-{q:"What is 8 + 12 ÷ 3?",o:["20","4","12","10"],a:"12",e:"Division before addition."},
-{q:"What comes next? 2, 4, 6, 8",o:["9","10","12","14"],a:"10",e:"Add 2 each time."},
-{q:"What is 7 × 2 - 5?",o:["9","19","14","5"],a:"9",e:"Multiply first, then subtract."},
-{q:"What is 16 ÷ 4 + 7?",o:["3","11","9","13"],a:"11",e:"Divide first, then add."},
-{q:"Find the rule: 5, 10, 15, 20",o:["Add 5","Add 10","Multiply by 5","Subtract 5"],a:"Add 5",e:"Each number increases by 5."},
-{q:"What comes next? 20, 17, 14, 11",o:["10","9","8","7"],a:"8",e:"Subtract 3 each time."},
-{q:"What comes next? 4, 8, 16, 32",o:["48","64","60","72"],a:"64",e:"Multiply by 2 each time."},
-{q:"Which is a numerical expression?",o:["4 + 5","4 + 5 = 9","9 = 9","Answer = 9"],a:"4 + 5",e:"An expression has no equal sign."},
-{q:"Which symbol means multiplication?",o:["+","−","×","÷"],a:"×",e:"The symbol × means multiply."},
-{q:"Which symbol means division?",o:["×","+","−","÷"],a:"÷",e:"The symbol ÷ means divide."},
-{q:"Subtract 5 from 20 becomes:",o:["20 - 5","5 - 20","20 + 5","20 ÷ 5"],a:"20 - 5",e:"Subtract 5 from 20 means 20 - 5."},
-{q:"Multiply 7 by 3 becomes:",o:["7 + 3","7 × 3","7 - 3","7 ÷ 3"],a:"7 × 3",e:"Multiply means use ×."},
-{q:"Parentheses are used to:",o:["Group numbers","Add only","Multiply only","Divide only"],a:"Group numbers",e:"Parentheses show what to solve first."},
-{q:"What is 5 + 5 × 2?",o:["20","15","10","25"],a:"15",e:"Multiply first: 5 × 2 = 10, then 5 + 10 = 15."},
-{q:"What is (5 + 5) × 2?",o:["10","15","20","25"],a:"20",e:"Parentheses first: 5 + 5 = 10, then × 2 = 20."},
-{q:"What is 12 ÷ 3 × 2?",o:["8","6","4","10"],a:"8",e:"Division and multiplication go left to right."},
-{q:"What is the product of 8 and 7?",o:["54","56","48","64"],a:"56",e:"Product means multiplication."},
-{q:"What is the quotient of 42 and 6?",o:["6","7","8","9"],a:"7",e:"Quotient means division."},
-{q:"Which is an equation?",o:["8 + 2","10 ÷ 5","6 × 4 = 24","9 - 1"],a:"6 × 4 = 24",e:"An equation has an equal sign."}
+{q:"What is 24 ÷ (3 × 2) + 5?",o:["9","8","12","14"],a:"9",e:"3×2=6, 24÷6=4, 4+5=9."},
+{q:"What is 3 × (8 - 2) + 4?",o:["22","18","30","14"],a:"22",e:"8-2=6, 3×6=18, 18+4=22."},
+{q:"What is 50 - 6 × 4?",o:["26","176","44","30"],a:"26",e:"Multiply first: 6×4=24, then 50-24=26."},
+{q:"What is (18 + 6) ÷ 3 × 2?",o:["16","8","12","14"],a:"16",e:"18+6=24, 24÷3=8, 8×2=16."},
+{q:"What is 7 + 3 × (10 - 6)?",o:["19","40","16","28"],a:"19",e:"10-6=4, 3×4=12, 7+12=19."},
+
+{q:"A pattern starts at 4 and doubles each time. What is the 5th term?",o:["32","16","64","20"],a:"64",e:"4, 8, 16, 32, 64."},
+{q:"What comes next? 3, 9, 27, 81",o:["162","243","108","90"],a:"243",e:"Multiply by 3 each time."},
+{q:"What comes next? 100, 95, 85, 70",o:["50","60","55","40"],a:"50",e:"Subtract 5, then 10, then 15, so subtract 20."},
+{q:"What is the rule? 2, 6, 18, 54",o:["Multiply by 3","Add 4","Multiply by 2","Add 12"],a:"Multiply by 3",e:"Each term is multiplied by 3."},
+{q:"What comes next? 1, 4, 9, 16",o:["20","24","25","36"],a:"25",e:"These are square numbers: 1,4,9,16,25."},
+
+{q:"Which expression has a value of 18?",o:["3×(4+2)","3+4×2","18÷3+2","20-4÷2"],a:"3×(4+2)",e:"4+2=6 and 3×6=18."},
+{q:"Which expression equals 30?",o:["5×(4+2)","5+4×2","30÷5+2","20+4÷2"],a:"5×(4+2)",e:"4+2=6 and 5×6=30."},
+{q:"Which is NOT an expression?",o:["6+4","8×3","10-2=8","12÷4"],a:"10-2=8",e:"It has an equal sign, so it is an equation."},
+{q:"Which is an equation?",o:["7+5","9×2","8+4=12","6-2"],a:"8+4=12",e:"An equation has an equal sign."},
+{q:"Which phrase means 36 ÷ 6?",o:["The sum of 36 and 6","The product of 36 and 6","The quotient of 36 and 6","The difference of 36 and 6"],a:"The quotient of 36 and 6",e:"Quotient means division."},
+
+{q:"Jenna's number is 4 times Alex's number. If Jenna = 52, what is Alex?",o:["13","14","12","16"],a:"13",e:"52÷4=13."},
+{q:"Alex has 9. Jenna has 5 times as many. How many does Jenna have?",o:["45","14","40","50"],a:"45",e:"9×5=45."},
+{q:"A number is multiplied by 6 to get 72. What is the number?",o:["12","10","14","9"],a:"12",e:"72÷6=12."},
+{q:"A number pattern adds 7 each time. If the first term is 11, what is the 4th term?",o:["25","32","28","18"],a:"32",e:"11,18,25,32."},
+{q:"A pattern subtracts 8 each time. Start at 60. What is the 5th term?",o:["28","36","32","20"],a:"28",e:"60,52,44,36,28."},
+
+{q:"What is 2 × 9 + 6 ÷ 3?",o:["20","24","8","14"],a:"20",e:"2×9=18 and 6÷3=2, then 18+2=20."},
+{q:"What is (40 - 10) ÷ 5 + 6?",o:["12","10","14","16"],a:"12",e:"40-10=30, 30÷5=6, 6+6=12."},
+{q:"What is 6 × 6 - 4 × 5?",o:["16","20","36","56"],a:"16",e:"6×6=36 and 4×5=20, then 36-20=16."},
+{q:"What is 100 ÷ (5 + 5) + 9?",o:["19","10","29","20"],a:"19",e:"5+5=10, 100÷10=10, 10+9=19."},
+{q:"What is 12 + 18 ÷ 6 × 2?",o:["18","10","16","20"],a:"18",e:"18÷6=3, 3×2=6, 12+6=18."},
+
+{q:"Which statement is true?",o:["Parentheses change meaning","Expressions always have equal signs","Addition is always first","Patterns have no rules"],a:"Parentheses change meaning",e:"Parentheses tell us what to solve first."},
+{q:"What is the value of 5 × (12 - 8) + 3?",o:["23","35","17","20"],a:"23",e:"12-8=4, 5×4=20, 20+3=23."},
+{q:"What is the value of 5 × 12 - 8 + 3?",o:["55","23","65","48"],a:"55",e:"5×12=60, 60-8=52, 52+3=55."},
+{q:"Why are 5×(12-8)+3 and 5×12-8+3 different?",o:["Different grouping","Different numbers","No multiplication","No addition"],a:"Different grouping",e:"Parentheses change the order of solving."},
+{q:"What is 72 ÷ 8 + 6 × 2?",o:["21","30","18","15"],a:"21",e:"72÷8=9 and 6×2=12, then 9+12=21."}
 ];
 
-let current=0;
-let score=0;
-let answered=false;
+let current=0, score=0, lives=3, answered=false;
+
+function shuffle(arr){return arr.sort(()=>Math.random()-0.5);}
+shuffle(questions);
 
 function loadQuestion(){
 answered=false;
 let q=questions[current];
-document.getElementById("score").innerHTML="Question "+(current+1)+" of "+questions.length+" | Score: "+score;
+document.getElementById("info").innerHTML=
+"Question "+(current+1)+" of "+questions.length+" | Score: "+score+" | Lives: "+"❤️".repeat(lives);
 document.getElementById("question").innerHTML=q.q;
 document.getElementById("feedback").innerHTML="";
 let options=document.getElementById("options");
 options.innerHTML="";
-q.o.forEach(function(opt){
+shuffle([...q.o]).forEach(opt=>{
 let btn=document.createElement("button");
 btn.className="option";
 btn.innerHTML=opt;
@@ -69,20 +92,30 @@ answered=true;
 let q=questions[current];
 if(opt===q.a){
 score++;
-btn.style.background="#c8e6c9";
+btn.classList.add("correct");
 document.getElementById("feedback").innerHTML="✅ Correct!";
+document.getElementById("feedback").style.color="green";
 }else{
-btn.style.background="#ffcdd2";
+lives--;
+btn.classList.add("wrong");
 document.getElementById("feedback").innerHTML="❌ Wrong! Correct answer: "+q.a+"<br>Reason: "+q.e;
+document.getElementById("feedback").style.color="red";
 }
 }
 
 function nextQuestion(){
+if(!answered){alert("Choose an answer first!");return;}
+if(lives<=0){
+document.querySelector(".box").innerHTML="<h1>Game Over 💔</h1><h2>Score: "+score+" / "+questions.length+"</h2><button onclick='location.reload()'>Try Again</button>";
+return;
+}
 current++;
 if(current<questions.length){
 loadQuestion();
 }else{
-document.querySelector(".box").innerHTML="<h1>Finished!</h1><h2>Score: "+score+" / "+questions.length+"</h2>";
+let percent=Math.round((score/questions.length)*100);
+let medal=percent>=90?"🏆 Gold Medal":percent>=75?"🥈 Silver Medal":percent>=60?"🥉 Bronze Medal":"💪 Keep Practicing";
+document.querySelector(".box").innerHTML="<h1>Finished!</h1><h2>Score: "+score+" / "+questions.length+"</h2><h2>"+percent+"%</h2><h2>"+medal+"</h2><button onclick='location.reload()'>Play Again</button>";
 }
 }
 
