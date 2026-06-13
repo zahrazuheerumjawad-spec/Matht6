@@ -21,8 +21,25 @@ body{font-family:Arial;text-align:center;background:#eef7ff;padding:30px}
 <script>
 const questions=[
 {q:"What is (6 + 4) × 2?",o:["20","14","16","10"],a:"20",e:"Parentheses first."},
-{q:"What is 8 + 12 ÷ 3?",o:["20","4","12","10"],a:"12",e:"Divide first."},
-{q:"What comes next? 2, 4, 6, 8",o:["9","10","12","14"],a:"10",e:"Add 2 each time."}
+{q:"What is 8 + 12 ÷ 3?",o:["20","4","12","10"],a:"12",e:"Division before addition."},
+{q:"What comes next? 2, 4, 6, 8",o:["9","10","12","14"],a:"10",e:"Add 2 each time."},
+{q:"What is 7 × 2 - 5?",o:["9","19","14","5"],a:"9",e:"Multiply first, then subtract."},
+{q:"What is 16 ÷ 4 + 7?",o:["3","11","9","13"],a:"11",e:"Divide first, then add."},
+{q:"Find the rule: 5, 10, 15, 20",o:["Add 5","Add 10","Multiply by 5","Subtract 5"],a:"Add 5",e:"Each number increases by 5."},
+{q:"What comes next? 20, 17, 14, 11",o:["10","9","8","7"],a:"8",e:"Subtract 3 each time."},
+{q:"What comes next? 4, 8, 16, 32",o:["48","64","60","72"],a:"64",e:"Multiply by 2 each time."},
+{q:"Which is a numerical expression?",o:["4 + 5","4 + 5 = 9","9 = 9","Answer = 9"],a:"4 + 5",e:"An expression has no equal sign."},
+{q:"Which symbol means multiplication?",o:["+","−","×","÷"],a:"×",e:"The symbol × means multiply."},
+{q:"Which symbol means division?",o:["×","+","−","÷"],a:"÷",e:"The symbol ÷ means divide."},
+{q:"Subtract 5 from 20 becomes:",o:["20 - 5","5 - 20","20 + 5","20 ÷ 5"],a:"20 - 5",e:"Subtract 5 from 20 means 20 - 5."},
+{q:"Multiply 7 by 3 becomes:",o:["7 + 3","7 × 3","7 - 3","7 ÷ 3"],a:"7 × 3",e:"Multiply means use ×."},
+{q:"Parentheses are used to:",o:["Group numbers","Add only","Multiply only","Divide only"],a:"Group numbers",e:"Parentheses show what to solve first."},
+{q:"What is 5 + 5 × 2?",o:["20","15","10","25"],a:"15",e:"Multiply first: 5 × 2 = 10, then 5 + 10 = 15."},
+{q:"What is (5 + 5) × 2?",o:["10","15","20","25"],a:"20",e:"Parentheses first: 5 + 5 = 10, then × 2 = 20."},
+{q:"What is 12 ÷ 3 × 2?",o:["8","6","4","10"],a:"8",e:"Division and multiplication go left to right."},
+{q:"What is the product of 8 and 7?",o:["54","56","48","64"],a:"56",e:"Product means multiplication."},
+{q:"What is the quotient of 42 and 6?",o:["6","7","8","9"],a:"7",e:"Quotient means division."},
+{q:"Which is an equation?",o:["8 + 2","10 ÷ 5","6 × 4 = 24","9 - 1"],a:"6 × 4 = 24",e:"An equation has an equal sign."}
 ];
 
 let current=0;
