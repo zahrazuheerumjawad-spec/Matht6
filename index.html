@@ -1,258 +1,255 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Math Quiz Game</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #e3f2fd, #fff3e0);
-      text-align: center;
-      padding: 20px;
-    }
+<meta charset="UTF-8">
+<title>Math Quiz - 30 Questions</title>
 
-    .container {
-      max-width: 800px;
-      margin: auto;
-      background: white;
-      padding: 25px;
-      border-radius: 20px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    }
-
-    h1 {
-      color: #123c69;
-    }
-
-    .question {
-      font-size: 24px;
-      margin: 25px 0;
-      font-weight: bold;
-    }
-.option {
-  display: block;
-  background: #f1f8ff;
-  color: #000000 !important;
-  margin: 10px auto;
-  padding: 15px;
-  border: 2px solid #2196f3;
-  border-radius: 12px;
-  cursor: pointer;
-  font-size: 20px;
-  width: 80%;
-  font-weight: bold;
+<style>
+body{
+font-family:Arial,sans-serif;
+background:linear-gradient(135deg,#e3f2fd,#fff3e0);
+text-align:center;
+padding:20px;
 }
 
-    .option:hover {
-      background: #bbdefb;
-    }
-
-    .correct {
-      background: #c8e6c9 !important;
-      border-color: #2e7d32;
-    }
-
-    .wrong {
-      background: #ffcdd2 !important;
-      border-color: #c62828;
-    }
-
-    button {
-  padding: 12px 25px;
-  font-size: 18px;
-  border: none;
-  border-radius: 10px;
-  background: #ff9800;
-  color: #000000;
-  font-weight: bold;
-  cursor: pointer;
-  margin-top: 20px;
+.container{
+max-width:800px;
+margin:auto;
+background:white;
+padding:25px;
+border-radius:20px;
+box-shadow:0 4px 15px rgba(0,0,0,.2);
 }
 
-    button:hover {
-      background: #e68900;
-    }
+.question{
+font-size:24px;
+font-weight:bold;
+margin:20px;
+color:black;
+}
 
-    #feedback {
-      font-size: 22px;
-      margin-top: 15px;
-      font-weight: bold;
-    }
+.option{
+display:block;
+width:80%;
+margin:10px auto;
+padding:15px;
+font-size:20px;
+font-weight:bold;
+background:#f1f8ff;
+border:2px solid #2196f3;
+border-radius:12px;
+cursor:pointer;
+color:black;
+}
 
-    #score {
-      font-size: 20px;
-      color: #4a148c;
-    }
-  </style>
+.option:hover{
+background:#bbdefb;
+}
+
+.correct{
+background:#c8e6c9!important;
+}
+
+.wrong{
+background:#ffcdd2!important;
+}
+
+button{
+padding:12px 25px;
+font-size:18px;
+font-weight:bold;
+background:#ff9800;
+color:black;
+border:none;
+border-radius:10px;
+cursor:pointer;
+}
+
+#feedback{
+font-size:22px;
+font-weight:bold;
+margin-top:15px;
+}
+</style>
 </head>
+
 <body>
 
 <div class="container">
-  <h1>🌟 Math Quiz Game 🌟</h1>
-  <p id="score"></p>
-  <div id="quiz">
-    <div class="question" id="question"></div>
-    <div id="options"></div>
-    <p id="feedback"></p>
-    <button onclick="nextQuestion()">Next</button>
-  </div>
+<h1>🌟 Math Quiz 🌟</h1>
+
+<p id="score"></p>
+
+<div id="question" class="question"></div>
+
+<div id="options"></div>
+
+<p id="feedback"></p>
+
+<button onclick="nextQuestion()">Next</button>
 </div>
 
 <script>
-const questions = [
-  {q:"Which operation is done first in (6 + 4) × 2?", o:["Multiply","Add","Divide","Subtract"], a:"Add"},
-  {q:"What is (5 + 3) × 4?", o:["20","32","17","12"], a:"32"},
-  {q:"What is 24 ÷ 6 × 2?", o:["8","4","12","6"], a:"8"},
-  {q:"In order of operations, what comes first?", o:["Multiplication","Addition","Parentheses","Division"], a:"Parentheses"},
-  {q:"What is 18 − 6 + 2?", o:["10","12","14","16"], a:"14"},
-  {q:"What does PMDAS stand for?", o:["Parentheses, Multiplication, Division, Addition, Subtraction","Plus, Minus, Divide, Add, Subtract","Parentheses, Minus, Divide, Add, Subtract","None"], a:"Parentheses, Multiplication, Division, Addition, Subtraction"},
-  {q:"What is (10 − 2) ÷ 4?", o:["4","3","2","1"], a:"2"},
-  {q:"What is 8 + 12 ÷ 3?", o:["20","4","12","10"], a:"12"},
-  {q:"What is 7 × 2 − 5?", o:["9","19","14","5"], a:"9"},
-  {q:"What is 16 ÷ 4 + 7?", o:["3","11","9","13"], a:"11"},
 
-  {q:"Find the rule: 2, 4, 6, 8, 10...", o:["Add 1","Add 2","Multiply by 2","Subtract 2"], a:"Add 2"},
-  {q:"Find the rule: 5, 10, 15, 20...", o:["Add 5","Add 10","Multiply by 5","Divide by 5"], a:"Add 5"},
-  {q:"What comes next? 3, 6, 9, 12...", o:["14","15","18","21"], a:"15"},
-  {q:"What comes next? 20, 17, 14, 11...", o:["10","9","8","7"], a:"8"},
-  {q:"What comes next? 4, 8, 16, 32...", o:["48","64","60","72"], a:"64"},
-  {q:"Which pattern is multiplying by 2?", o:["1, 3, 5, 7","2, 4, 8, 16","5, 10, 15, 20","20, 18, 16, 14"], a:"2, 4, 8, 16"},
-  {q:"What is the rule for 64, 32, 16, 8...?", o:["Divide by 2","Add 2","Multiply by 2","Subtract 2"], a:"Divide by 2"},
-  {q:"A term is:", o:["The rule","Each number in a pattern","The answer","The operation"], a:"Each number in a pattern"},
-  {q:"A pattern is:", o:["Random numbers","Numbers following a rule","A sentence","An equation"], a:"Numbers following a rule"},
-  {q:"What comes next? 7, 14, 21, 28...", o:["30","32","35","42"], a:"35"},
+const questions=[
 
-  {q:"Jenna's pattern is always 3 times Alex's pattern. Alex = 8. Jenna = ?", o:["16","24","32","12"], a:"24"},
-  {q:"Alex = 10. Jenna = ?", o:["20","25","30","40"], a:"30"},
-  {q:"Jenna = 54. Alex = ?", o:["16","18","20","27"], a:"18"},
-  {q:"Jenna = 36. Alex = ?", o:["18","6","12","9"], a:"12"},
-  {q:"Alex = 4. Jenna = ?", o:["8","10","12","16"], a:"12"},
+{q:"Which operation is done first in (6+4)×2 ?",o:["Multiply","Add","Divide","Subtract"],a:"Add"},
+{q:"What is (5+3)×4 ?",o:["20","32","17","12"],a:"32"},
+{q:"What is 24÷6×2 ?",o:["8","4","12","6"],a:"8"},
+{q:"What comes first in order of operations?",o:["Addition","Parentheses","Division","Subtraction"],a:"Parentheses"},
+{q:"What is 18-6+2 ?",o:["10","12","14","16"],a:"14"},
+{q:"What is (10-2)÷4 ?",o:["4","3","2","1"],a:"2"},
+{q:"What is 8+12÷3 ?",o:["20","4","12","10"],a:"12"},
+{q:"What is 7×2-5 ?",o:["9","19","14","5"],a:"9"},
+{q:"What is 16÷4+7 ?",o:["3","11","9","13"],a:"11"},
+{q:"What is (9+1)×2 ?",o:["18","20","11","10"],a:"20"},
 
-  {q:"Which is a numerical expression?", o:["4 + 5","4 + 5 = 9","9 = 9","Answer = 9"], a:"4 + 5"},
-  {q:"A numerical expression has:", o:["An equal sign","Numbers and operation symbols","Words only","Pictures only"], a:"Numbers and operation symbols"},
-  {q:"Which symbol means multiplication?", o:["+","−","×","÷"], a:"×"},
-  {q:"Which symbol means division?", o:["×","+","−","÷"], a:"÷"},
-  {q:"Add 12 and 8 becomes:", o:["12 − 8","12 × 8","12 + 8","12 ÷ 8"], a:"12 + 8"},
-  {q:"Subtract 5 from 20 becomes:", o:["20 − 5","5 − 20","20 + 5","20 ÷ 5"], a:"20 − 5"},
-  {q:"Multiply 7 by 3 becomes:", o:["7 + 3","7 × 3","7 − 3","7 ÷ 3"], a:"7 × 3"},
-  {q:"Divide 24 by 6 becomes:", o:["24 + 6","24 − 6","24 × 6","24 ÷ 6"], a:"24 ÷ 6"},
-  {q:"Which is NOT a numerical expression?", o:["8 × 4","6 + 3","7 − 2","8 × 4 = 32"], a:"8 × 4 = 32"},
-  {q:"Parentheses are used to:", o:["Group numbers","Add only","Multiply only","Divide only"], a:"Group numbers"},
+{q:"Find the rule: 2,4,6,8,10",o:["Add 1","Add 2","Subtract 2","Multiply by 2"],a:"Add 2"},
+{q:"Find the rule: 5,10,15,20",o:["Add 5","Add 10","Multiply by 5","Subtract 5"],a:"Add 5"},
+{q:"What comes next? 3,6,9,12",o:["14","15","18","21"],a:"15"},
+{q:"What comes next? 20,17,14,11",o:["10","9","8","7"],a:"8"},
+{q:"What comes next? 4,8,16,32",o:["48","64","60","72"],a:"64"},
+{q:"What is the rule for 64,32,16,8?",o:["Divide by 2","Add 2","Multiply by 2","Subtract 2"],a:"Divide by 2"},
+{q:"A term is",o:["The rule","Each number in a pattern","The answer","The operation"],a:"Each number in a pattern"},
+{q:"A pattern is",o:["Random numbers","Numbers following a rule","A sentence","An equation"],a:"Numbers following a rule"},
+{q:"What comes next? 7,14,21,28",o:["30","32","35","42"],a:"35"},
+{q:"Alex=10 Jenna=30. Jenna is how many times Alex?",o:["2","3","4","5"],a:"3"},
 
-  {q:"What is the product of 6 and 4?", o:["24","10","2","18"], a:"24"},
-  {q:"What is the sum of 12 and 8?", o:["18","20","24","4"], a:"20"},
-  {q:"What is the difference of 15 and 6?", o:["21","10","9","11"], a:"9"},
-  {q:"What is the quotient of 24 and 6?", o:["4","30","18","12"], a:"4"},
-  {q:"Which expression means the sum of 8 and 2?", o:["8 × 2","8 + 2","8 − 2","8 ÷ 2"], a:"8 + 2"},
-  {q:"Which expression means the product of 5 and 3?", o:["5 + 3","5 × 3","5 − 3","5 ÷ 3"], a:"5 × 3"},
-  {q:"What is (10 × 2) + 5?", o:["25","20","15","30"], a:"25"},
-  {q:"What is 10 × (2 + 5)?", o:["25","70","20","17"], a:"70"},
-  {q:"Are the answers to (10 × 2) + 5 and 10 × (2 + 5) the same?", o:["Yes","No","Sometimes","Always"], a:"No"},
-  {q:"Why are they different?", o:["Different numbers","Different operations","Different grouping","Different symbols"], a:"Different grouping"},
-  {q:"What does grouping change?", o:["Color","Meaning of the expression","Number size","Symbols"], a:"Meaning of the expression"},
-  {q:"Which should be solved first in (9 + 1) × 2?", o:["9 + 1","1 × 2","9 × 2","2"], a:"9 + 1"},
-  {q:"What is (9 + 1) × 2?", o:["18","20","11","10"], a:"20"},
-  {q:"What is 9 + 1 × 2?", o:["20","18","11","10"], a:"11"},
-  {q:"Which statement is true?", o:["Parentheses matter","Grouping never matters","Multiplication is always first","Expressions need an equal sign"], a:"Parentheses matter"}
-  {q:"What is 6 + 4 × 2?", o:["20","14","16","10"], a:"14"},
-{q:"What is (6 + 4) × 2?", o:["20","14","16","10"], a:"20"},
-{q:"What is 30 ÷ 5 + 3?", o:["9","6","12","15"], a:"9"},
-{q:"What is 30 ÷ (5 + 1)?", o:["5","6","4","10"], a:"5"},
-{q:"Find the rule: 10, 20, 30, 40...", o:["Add 5","Add 10","Multiply by 10","Subtract 10"], a:"Add 10"},
-{q:"Find the rule: 100, 90, 80, 70...", o:["Add 10","Subtract 10","Divide by 10","Multiply by 10"], a:"Subtract 10"},
-{q:"What comes next? 5, 10, 20, 40...", o:["45","50","80","60"], a:"80"},
-{q:"What comes next? 81, 27, 9, 3...", o:["1","2","0","6"], a:"1"},
-{q:"Which word means the answer to an addition problem?", o:["Product","Quotient","Sum","Difference"], a:"Sum"},
-{q:"Which word means the answer to a subtraction problem?", o:["Sum","Difference","Product","Term"], a:"Difference"},
-{q:"Which word means the answer to a multiplication problem?", o:["Product","Quotient","Sum","Difference"], a:"Product"},
-{q:"Which word means the answer to a division problem?", o:["Sum","Term","Quotient","Product"], a:"Quotient"},
-{q:"Which expression means the difference of 20 and 7?", o:["20 + 7","20 - 7","20 × 7","20 ÷ 7"], a:"20 - 7"},
-{q:"Which expression means the quotient of 36 and 6?", o:["36 + 6","36 - 6","36 × 6","36 ÷ 6"], a:"36 ÷ 6"},
-{q:"What is (8 + 2) × 3?", o:["30","24","14","20"], a:"30"},
-{q:"What is 8 + 2 × 3?", o:["30","14","24","18"], a:"14"},
-{q:"Why are (8 + 2) × 3 and 8 + 2 × 3 different?", o:["Different numbers","Different grouping","Different symbols only","No reason"], a:"Different grouping"},
-{q:"Which is an equation?", o:["7 + 5","9 × 2","8 + 4 = 12","6 - 2"], a:"8 + 4 = 12"},
-{q:"Which one is an expression?", o:["10 + 5 = 15","12 ÷ 3","8 = 8","4 × 2 = 8"], a:"12 ÷ 3"},
-{q:"Which should be done first in 4 + 6 ÷ 2?", o:["4 + 6","6 ÷ 2","4 ÷ 2","6 + 2"], a:"6 ÷ 2"}
+{q:"Which is a numerical expression?",o:["4+5","4+5=9","9=9","Answer=9"],a:"4+5"},
+{q:"A numerical expression has",o:["Words only","Numbers and symbols","Pictures","Equal sign always"],a:"Numbers and symbols"},
+{q:"Which symbol means multiplication?",o:["+","−","×","÷"],a:"×"},
+{q:"Which symbol means division?",o:["×","+","−","÷"],a:"÷"},
+{q:"Add 12 and 8 becomes",o:["12-8","12×8","12+8","12÷8"],a:"12+8"},
+{q:"Subtract 5 from 20 becomes",o:["20-5","5-20","20+5","20÷5"],a:"20-5"},
+{q:"Multiply 7 by 3 becomes",o:["7+3","7×3","7-3","7÷3"],a:"7×3"},
+{q:"Divide 24 by 6 becomes",o:["24+6","24-6","24×6","24÷6"],a:"24÷6"},
+{q:"Parentheses are used to",o:["Group numbers","Add only","Multiply only","Divide only"],a:"Group numbers"},
+{q:"Which statement is true?",o:["Parentheses matter","Grouping never matters","Multiplication is always first","Expressions need an equal sign"],a:"Parentheses matter"}
+{q:"What is 12 ÷ 3 × 2?",o:["8","6","4","10"],a:"8",e:"Division and multiplication are solved left to right."},
+{q:"What is 5 + 5 × 2?",o:["20","15","10","25"],a:"15",e:"Multiply before addition."},
+{q:"What is (5 + 5) × 2?",o:["10","15","20","25"],a:"20",e:"Solve inside parentheses first."},
+{q:"What comes next? 6,12,18,24",o:["28","30","32","36"],a:"30",e:"Add 6 each time."},
+{q:"What comes next? 100,80,60,40",o:["10","15","20","25"],a:"20",e:"Subtract 20 each time."},
+{q:"What is the rule? 1,4,7,10",o:["Add 2","Add 3","Add 4","Multiply by 3"],a:"Add 3",e:"Each term increases by 3."},
+{q:"Which is an equation?",o:["8+2","10÷5","6×4=24","9-1"],a:"6×4=24",e:"An equation has an equal sign."},
+{q:"Which is an expression?",o:["8=8","4+5","10=2×5","6=3+3"],a:"4+5",e:"Expressions do not contain an equal sign."},
+{q:"What is the product of 8 and 7?",o:["54","56","48","64"],a:"56",e:"Product means multiplication."},
+{q:"What is the quotient of 42 and 6?",o:["6","7","8","9"],a:"7",e:"Quotient means division."},
+{q:"What is the sum of 18 and 12?",o:["20","28","30","32"],a:"30",e:"Sum means addition."},
+{q:"What is the difference of 25 and 9?",o:["14","15","16","17"],a:"16",e:"Difference means subtraction."},
+{q:"What is 4 × (3 + 2)?",o:["20","14","18","16"],a:"20",e:"Solve parentheses first."},
+{q:"What is 4 × 3 + 2?",o:["12","14","16","18"],a:"14",e:"Multiply before addition."},
+{q:"Which operation is done first in 18 ÷ 3 + 4?",o:["Addition","Division","Subtraction","None"],a:"Division",e:"Division comes before addition."},
+{q:"What comes next? 2,6,18,54",o:["108","162","216","72"],a:"162",e:"Multiply by 3 each time."},
+{q:"A pattern must have",o:["Random numbers","A rule","Pictures","Words"],a:"A rule",e:"Patterns follow a rule."},
+{q:"Which symbol means divide?",o:["×","+","÷","-"],a:"÷",e:"÷ is the division symbol."},
+{q:"What is 20 - (4 + 6)?",o:["8","10","12","14"],a:"10",e:"Solve inside parentheses first."},
+{q:"What is 20 - 4 + 6?",o:["10","18","22","16"],a:"22",e:"Addition and subtraction go left to right."}
 ];
 
-let current = 0;
-let score = 0;
-let answered = false;
+let current=0;
+let score=0;
+let answered=false;
 
-function shuffle(array) {
-  return array.sort(() => Math.random() - 0.5);
+function shuffle(arr){
+return arr.sort(()=>Math.random()-0.5);
 }
 
 shuffle(questions);
 
-function loadQuestion() {
-  answered = false;
-  document.getElementById("feedback").innerHTML = "";
-  document.getElementById("score").innerHTML = `Question ${current + 1} of ${questions.length} | Score: ${score}`;
+function loadQuestion(){
 
-  const q = questions[current];
-  document.getElementById("question").innerHTML = q.q;
+answered=false;
 
-  const optionsDiv = document.getElementById("options");
-  optionsDiv.innerHTML = "";
+document.getElementById("feedback").innerHTML="";
 
-  let shuffledOptions = shuffle([...q.o]);
+document.getElementById("score").innerHTML=
+`Question ${current+1} of ${questions.length} | Score: ${score}`;
 
-  shuffledOptions.forEach(option => {
-    const btn = document.createElement("button");
-    btn.className = "option";
-    btn.innerHTML = option;
-    btn.onclick = () => checkAnswer(btn, option);
-    optionsDiv.appendChild(btn);
-  });
+const q=questions[current];
+
+document.getElementById("question").innerHTML=q.q;
+
+const options=document.getElementById("options");
+
+options.innerHTML="";
+
+shuffle([...q.o]).forEach(option=>{
+
+const btn=document.createElement("button");
+
+btn.className="option";
+
+btn.innerHTML=option;
+
+btn.onclick=()=>checkAnswer(btn,option);
+
+options.appendChild(btn);
+
+});
 }
 
-function checkAnswer(button, selected) {
-  if (answered) return;
-  answered = true;
+function checkAnswer(button,selected){
 
-  const correctAnswer = questions[current].a;
-  const buttons = document.querySelectorAll(".option");
+if(answered)return;
 
-  buttons.forEach(btn => {
-    if (btn.innerHTML === correctAnswer) {
-      btn.classList.add("correct");
-    }
-  });
+answered=true;
 
-  if (selected === correctAnswer) {
-    score++;
-    document.getElementById("feedback").innerHTML = "✅ Correct!";
-    document.getElementById("feedback").style.color = "green";
-  } else {
-    button.classList.add("wrong");
-    document.getElementById("feedback").innerHTML = `❌ Wrong! Correct answer: ${correctAnswer}`;
-    document.getElementById("feedback").style.color = "red";
-  }
+const correct=questions[current].a;
+
+document.querySelectorAll(".option").forEach(btn=>{
+
+if(btn.innerHTML===correct){
+btn.classList.add("correct");
 }
 
-function nextQuestion() {
-  if (!answered) {
-    alert("Please choose an answer first!");
-    return;
-  }
+});
 
-  current++;
+if(selected===correct){
 
-  if (current < questions.length) {
-    loadQuestion();
-  } else {
-    document.querySelector(".container").innerHTML = `
-      <h1>🎉 Quiz Finished! 🎉</h1>
-      <h2>Your Score: ${score} / ${questions.length}</h2>
-      <p>${score >= 40 ? "Excellent work! 🌟" : score >= 30 ? "Good job! Keep practicing 👍" : "Keep trying, you can do it! 💪"}</p>
-      <button onclick="location.reload()">Play Again</button>
-    `;
-  }
+score++;
+
+document.getElementById("feedback").innerHTML="✅ Correct";
+
+document.getElementById("feedback").style.color="green";
+
+}else{
+
+button.classList.add("wrong");
+
+document.getElementById("feedback").innerHTML=
+"❌ Correct answer: "+correct;
+
+document.getElementById("feedback").style.color="red";
+
+}
+}
+
+function nextQuestion(){
+
+if(!answered){
+alert("Choose an answer first");
+return;
+}
+
+current++;
+
+if(current<questions.length){
+
+loadQuestion();
+
+}else{
+
+document.querySelector(".container").innerHTML=
+`<h1>🎉 Quiz Finished</h1>
+<h2>${score} / ${questions.length}</h2>
+<button onclick="location.reload()">Play Again</button>`;
+
+}
 }
 
 loadQuestion();
+
 </script>
 
 </body>
